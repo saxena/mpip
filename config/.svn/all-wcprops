@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/p/mpip/code/!svn/ver/331/trunk/config
+END
+testing.exp
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/p/mpip/code/!svn/ver/331/trunk/config/testing.exp
+END
+linux.exp
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/p/mpip/code/!svn/ver/62/trunk/config/linux.exp
+END
+unix.exp
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/p/mpip/code/!svn/ver/265/trunk/config/unix.exp
+END

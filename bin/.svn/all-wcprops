@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/p/mpip/code/!svn/ver/511/trunk/bin
+END
+config.guess
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/p/mpip/code/!svn/ver/180/trunk/bin/config.guess
+END
+srun-mpip
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/p/mpip/code/!svn/ver/477/trunk/bin/srun-mpip
+END
+mpip-insert-src
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/p/mpip/code/!svn/ver/452/trunk/bin/mpip-insert-src
+END
+config.sub
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/p/mpip/code/!svn/ver/289/trunk/bin/config.sub
+END
+mpirun-mpip
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/p/mpip/code/!svn/ver/511/trunk/bin/mpirun-mpip
+END
+install-sh
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/p/mpip/code/!svn/ver/2/trunk/bin/install-sh
+END

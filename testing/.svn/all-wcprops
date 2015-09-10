@@ -1,0 +1,341 @@
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/p/mpip/code/!svn/ver/500/trunk/testing
+END
+0-simplef.f
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/p/mpip/code/!svn/ver/368/trunk/testing/0-simplef.f
+END
+sweep-ops-stack.exp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/p/mpip/code/!svn/ver/58/trunk/testing/sweep-ops-stack.exp
+END
+api-test.exp
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/p/mpip/code/!svn/ver/326/trunk/testing/api-test.exp
+END
+16-waitallf.exp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/p/mpip/code/!svn/ver/242/trunk/testing/16-waitallf.exp
+END
+1-hot-potato.src
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/p/mpip/code/!svn/ver/354/trunk/testing/1-hot-potato.src
+END
+Makefile.in
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/p/mpip/code/!svn/ver/489/trunk/testing/Makefile.in
+END
+17-rma.c
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/p/mpip/code/!svn/ver/500/trunk/testing/17-rma.c
+END
+14-mpiio.src
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/p/mpip/code/!svn/ver/178/trunk/testing/14-mpiio.src
+END
+0-simple-c++.exp
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/p/mpip/code/!svn/ver/265/trunk/testing/0-simple-c++.exp
+END
+1-hot-potato.exp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/p/mpip/code/!svn/ver/58/trunk/testing/1-hot-potato.exp
+END
+12-null-null.src
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/p/mpip/code/!svn/ver/151/trunk/testing/12-null-null.src
+END
+bfd-test.c
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/p/mpip/code/!svn/ver/369/trunk/testing/bfd-test.c
+END
+14-mpiio.exp
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/p/mpip/code/!svn/ver/178/trunk/testing/14-mpiio.exp
+END
+timer-info.c
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/p/mpip/code/!svn/ver/368/trunk/testing/timer-info.c
+END
+test_template.tcl
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/p/mpip/code/!svn/ver/338/trunk/testing/test_template.tcl
+END
+12-null-null.exp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/p/mpip/code/!svn/ver/97/trunk/testing/12-null-null.exp
+END
+5-medley.c
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/p/mpip/code/!svn/ver/369/trunk/testing/5-medley.c
+END
+8-test.c
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/p/mpip/code/!svn/ver/369/trunk/testing/8-test.c
+END
+sweep-ops.f
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/p/mpip/code/!svn/ver/426/trunk/testing/sweep-ops.f
+END
+api-test.c
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/p/mpip/code/!svn/ver/368/trunk/testing/api-test.c
+END
+testing.exp
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/p/mpip/code/!svn/ver/72/trunk/testing/testing.exp
+END
+15-pcontrol.src
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/p/mpip/code/!svn/ver/500/trunk/testing/15-pcontrol.src
+END
+sweep-ops-stack.f
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/p/mpip/code/!svn/ver/426/trunk/testing/sweep-ops-stack.f
+END
+10-coll-mess-size.src
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/p/mpip/code/!svn/ver/77/trunk/testing/10-coll-mess-size.src
+END
+3-stacktrace.src
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/p/mpip/code/!svn/ver/354/trunk/testing/3-stacktrace.src
+END
+16-waitallf.f
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/p/mpip/code/!svn/ver/486/trunk/testing/16-waitallf.f
+END
+1-hot-potato.c
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/p/mpip/code/!svn/ver/369/trunk/testing/1-hot-potato.c
+END
+15-pcontrol.exp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/p/mpip/code/!svn/ver/232/trunk/testing/15-pcontrol.exp
+END
+10-coll-mess-size.exp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/p/mpip/code/!svn/ver/72/trunk/testing/10-coll-mess-size.exp
+END
+3-stacktrace.exp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/p/mpip/code/!svn/ver/58/trunk/testing/3-stacktrace.exp
+END
+2-pcontrol.c
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/p/mpip/code/!svn/ver/369/trunk/testing/2-pcontrol.c
+END
+14-mpiio.c
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/p/mpip/code/!svn/ver/369/trunk/testing/14-mpiio.c
+END
+0-simple.exp
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/p/mpip/code/!svn/ver/265/trunk/testing/0-simple.exp
+END
+11-p2p-mess-size.src
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/p/mpip/code/!svn/ver/79/trunk/testing/11-p2p-mess-size.src
+END
+12-null-null.c
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/p/mpip/code/!svn/ver/369/trunk/testing/12-null-null.c
+END
+7-nonblock-waitall.c
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/p/mpip/code/!svn/ver/369/trunk/testing/7-nonblock-waitall.c
+END
+0-simplef.exp
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/p/mpip/code/!svn/ver/265/trunk/testing/0-simplef.exp
+END
+11-p2p-mess-size.exp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/p/mpip/code/!svn/ver/72/trunk/testing/11-p2p-mess-size.exp
+END
+6-nonblock.c
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/p/mpip/code/!svn/ver/369/trunk/testing/6-nonblock.c
+END
+17-rma.src
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/p/mpip/code/!svn/ver/438/trunk/testing/17-rma.src
+END
+4-demangle.C
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/p/mpip/code/!svn/ver/368/trunk/testing/4-demangle.C
+END
+17-rma.exp
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/p/mpip/code/!svn/ver/438/trunk/testing/17-rma.exp
+END
+4-demangle.src
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/p/mpip/code/!svn/ver/354/trunk/testing/4-demangle.src
+END
+15-pcontrol.c
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/p/mpip/code/!svn/ver/500/trunk/testing/15-pcontrol.c
+END
+10-coll-mess-size.c
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/p/mpip/code/!svn/ver/500/trunk/testing/10-coll-mess-size.c
+END
+3-stacktrace.c
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/p/mpip/code/!svn/ver/369/trunk/testing/3-stacktrace.c
+END
+9-test-mpip-time.c
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/p/mpip/code/!svn/ver/369/trunk/testing/9-test-mpip-time.c
+END
+0-simple.c
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/p/mpip/code/!svn/ver/369/trunk/testing/0-simple.c
+END
+4-demangle.exp
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/p/mpip/code/!svn/ver/58/trunk/testing/4-demangle.exp
+END
+sweep-ops.src
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/p/mpip/code/!svn/ver/436/trunk/testing/sweep-ops.src
+END
+13-pcontrol-report.c
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/p/mpip/code/!svn/ver/369/trunk/testing/13-pcontrol-report.c
+END
+sweep-ops-stack.src
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/p/mpip/code/!svn/ver/436/trunk/testing/sweep-ops-stack.src
+END
+16-waitallf.src
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/p/mpip/code/!svn/ver/436/trunk/testing/16-waitallf.src
+END
+0-simple-c++.C
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/p/mpip/code/!svn/ver/369/trunk/testing/0-simple-c++.C
+END
+sweep-ops.exp
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/p/mpip/code/!svn/ver/58/trunk/testing/sweep-ops.exp
+END
+11-p2p-mess-size.c
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/p/mpip/code/!svn/ver/368/trunk/testing/11-p2p-mess-size.c
+END
