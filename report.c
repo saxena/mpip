@@ -1048,7 +1048,7 @@ mpiPi_print_all_callsite_time_info (FILE * fp)
    */
   qsort (av, ac, sizeof (void *), callsite_sort_by_name_id_rank);
 
-  sprintf (buf, "Callsite Time statistics (all, milliseconds): %d", ac);
+  sprintf (buf, "Callsite Time statistics (all, milliseconds, with time): %d", ac);
   print_section_heading (fp, buf);
   fprintf (fp, "%-17s %4s %4s %6s %8s %8s %8s %6s %6s %10s\n", "Name", "Site",
 	   "Rank", "Count", "Max", "Mean", "Min", "App%", "MPI%", "Time");
