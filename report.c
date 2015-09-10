@@ -113,12 +113,12 @@ static char *mpiP_Report_Formats[][2] = {
    "%-20s %4d %10lld %10.3f %10.3f %6.2lf\n"},
   {
    /*  MPIP_CALLSITE_TIME_SUMMARY_FMT  */
-   "%-17s %4d %4s %6lld %8.3g %8.3g %8.3g %6.2lf %6.2lf\n",
-   "%-17s %4d %4s %6lld %8.3f %8.3f %8.3f %6.2lf %6.2lf\n"},
+   "%-17s %4d %4s %6lld %8.3g %8.3g %8.3g %6.2lf %6.2lf %10.3g\n",
+   "%-17s %4d %4s %6lld %8.3f %8.3f %8.3f %6.2lf %6.2lf %10.3f\n"},
   {
    /*  MPIP_CALLSITE_TIME_RANK_FMT  */
-   "%-17s %4d %4d %6lld %8.3g %8.3g %8.3g %6.2lf %6.2lf\n",
-   "%-17s %4d %4d %6lld %8.3f %8.3f %8.3f %6.2lf %6.2lf\n"},
+   "%-17s %4d %4d %6lld %8.3g %8.3g %8.3g %6.2lf %6.2lf %10.3g\n",
+   "%-17s %4d %4d %6lld %8.3f %8.3f %8.3f %6.2lf %6.2lf %10.3f\n"},
   {
    /*  MPIP_CALLSITE_MESS_SUMMARY_FMT  */
    "%-17s %4d %4s %7lld %9.4g %9.4g %9.4g %9.4g\n",
@@ -1050,8 +1050,8 @@ mpiPi_print_all_callsite_time_info (FILE * fp)
 
   sprintf (buf, "Callsite Time statistics (all, milliseconds): %d", ac);
   print_section_heading (fp, buf);
-  fprintf (fp, "%-17s %4s %4s %6s %8s %8s %8s %6s %6s\n", "Name", "Site",
-	   "Rank", "Count", "Max", "Mean", "Min", "App%", "MPI%");
+  fprintf (fp, "%-17s %4s %4s %6s %8s %8s %8s %6s %6s %10s\n", "Name", "Site",
+	   "Rank", "Count", "Max", "Mean", "Min", "App%", "MPI%     Time");
 
   {
     long long sCount = 0;
@@ -1073,7 +1073,8 @@ mpiPi_print_all_callsite_time_info (FILE * fp)
 		     0 ? 100.0 * sCumulative / (mpiPi.global_app_time *
 						1e6) : 0,
 		     mpiPi.global_mpi_time >
-		     0 ? 100.0 * sCumulative / mpiPi.global_mpi_time : 0);
+		     0 ? 100.0 * sCumulative / mpiPi.global_mpi_time : 0,
+		     sCumulative / 1000.0);
 	    fprintf (fp, "\n");
 	    sCount = 0;
 	    sMax = 0;
@@ -1102,7 +1103,8 @@ mpiPi_print_all_callsite_time_info (FILE * fp)
 		     100.0 * av[i]->cumulativeTime /
 		     (mpiPi.global_task_app_time[av[i]->rank] * 1e6),
 		     100.0 * av[i]->cumulativeTime /
-		     mpiPi.global_task_mpi_time[av[i]->rank]);
+		     mpiPi.global_task_mpi_time[av[i]->rank],
+		     av[i]->cumulativeTime / 1000.0);
 	  }
       }
     fprintf (fp,
@@ -1114,7 +1116,8 @@ mpiPi_print_all_callsite_time_info (FILE * fp)
 	     mpiPi.global_app_time >
 	     0 ? 100.0 * sCumulative / (mpiPi.global_app_time * 1e6) : 0,
 	     mpiPi.global_mpi_time >
-	     0 ? 100.0 * sCumulative / mpiPi.global_mpi_time : 0);
+	     0 ? 100.0 * sCumulative / mpiPi.global_mpi_time : 0,
+	     sCumulative / 1000.0);
   }
 
   free (av);
