@@ -121,12 +121,12 @@ static char *mpiP_Report_Formats[][2] = {
    "%-17s %4d %4d %6lld %8.3f %8.3f %8.3f %6.2lf %6.2lf %10.3f\n"},
   {
    /*  MPIP_CALLSITE_MESS_SUMMARY_FMT  */
-   "%-17s %4d %4s %7lld %9.4g %9.4g %9.4g %9.4g\n",
-   "%-17s %4d %4s %7lld %9.4f %9.4f %9.4f %9.4f\n"},
+   "%-17s %4d %4s %7lld %9.4g %9.4g %9.4g %9.4g %10.3g\n",
+   "%-17s %4d %4s %7lld %9.4f %9.4f %9.4f %9.4f %10.3f\n"},
   {
    /*  MPIP_CALLSITE_MESS_RANK_FMT  */
-   "%-17s %4d %4d %7lld %9.4g %9.4g %9.4g %9.4g\n",
-   "%-17s %4d %4d %7lld %9.4f %9.4f %9.4f %9.4f\n"},
+   "%-17s %4d %4d %7lld %9.4g %9.4g %9.4g %9.4g %10.3g\n",
+   "%-17s %4d %4d %7lld %9.4f %9.4f %9.4f %9.4f %10.3f\n"},
   {
    /*  MPIP_CALLSITE_IO_SUMMARY_FMT  */
    "%-17s %4d %4s %7lld %9.4g %9.4g %9.4g %9.4g\n",
@@ -1275,16 +1275,17 @@ mpiPi_print_all_callsite_sent_info (FILE * fp)
        */
       qsort (av, ac, sizeof (void *), callsite_sort_by_name_id_rank);
 
-      sprintf (buf, "Callsite Message Sent statistics (all, sent bytes)");
+      sprintf (buf, "Callsite Message Sent statistics (all, sent bytes, with time)");
       print_section_heading (fp, buf);
-      fprintf (fp, "%-17s %4s %4s %7s %9s %9s %9s %9s\n", "Name", "Site",
-	       "Rank", "Count", "Max", "Mean", "Min", "Sum");
+      fprintf (fp, "%-17s %4s %4s %7s %9s %9s %9s %9s %10s\n", "Name", "Site",
+	       "Rank", "Count", "Max", "Mean", "Min", "Sum", "Time");
 
       {
 	long long sCount = 0;
 	double sMin = DBL_MAX;
 	double sMax = 0;
 	double sCumulative = 0;
+	double sCumulativeTime = 0;
 	int lastcsid = 0;
 
 	for (i = 0; i < ac; i++)
@@ -1296,18 +1297,21 @@ mpiPi_print_all_callsite_sent_info (FILE * fp)
 			 [mpiPi.reportFormat],
 			 &(mpiPi.lookup[av[i - 1]->op - mpiPi_BASE].name[4]),
 			 av[i - 1]->csid, "*", sCount, sMax,
-			 sCumulative / sCount, sMin, sCumulative);
+			 sCumulative / sCount, sMin, sCumulative, 
+			 sCumulativeTime / 1000);
 
 		sCount = 0;
 		sMax = 0;
 		sMin = DBL_MAX;
 		sCumulative = 0;
+		sCumulativeTime = 0;
 	      }
 
 	    if (av[i]->cumulativeDataSent > 0)
 	      {
 		sCount += av[i]->count;
 		sCumulative += av[i]->cumulativeDataSent;
+		sCumulativeTime += av[i]->cumulativeTime;
 		sMax = max (av[i]->maxDataSent, sMax);
 		sMin = min (av[i]->minDataSent, sMin);
 
@@ -1321,7 +1325,8 @@ mpiPi_print_all_callsite_sent_info (FILE * fp)
 			 av[i]->csid, av[i]->rank, av[i]->count,
 			 av[i]->maxDataSent,
 			 av[i]->cumulativeDataSent / av[i]->count,
-			 av[i]->minDataSent, av[i]->cumulativeDataSent);
+			 av[i]->minDataSent, av[i]->cumulativeDataSent,
+			 av[i]->cumulativeTime / 1000);
 
 		lastcsid = av[i]->csid;
 	      }
@@ -1334,7 +1339,8 @@ mpiPi_print_all_callsite_sent_info (FILE * fp)
 		     [mpiPi.reportFormat],
 		     &(mpiPi.lookup[av[i - 1]->op - mpiPi_BASE].name[4]),
 		     av[i - 1]->csid, "*", sCount, sMax,
-		     sCumulative / sCount, sMin, sCumulative);
+		     sCumulative / sCount, sMin, sCumulative,
+		     sCumulativeTime / 1000);
 	  }
       }
 
