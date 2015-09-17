@@ -1,0 +1,13 @@
+This is clone of the mpiP repository from Sourceforge.
+
+* Contains MM specific changes to add printing of Rank specific MPI Time data.
+* Also contains MM specific Point to Point profiling of "Bytes" and "MPI Time"
+  between pairs of source and destination ranks.
+
+How to Deploy this repository ?
+
+* Clone this repository within the perftools directory structure.
+
+git clone https://rahulsaxena@bitbucket.org/rahulsaxena/mpip.git
+
+* perftools$> make install-mpip
