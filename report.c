@@ -60,6 +60,7 @@ static void mpiPi_print_top_time_sites (FILE * fp);
 static void mpiPi_print_top_sent_sites (FILE * fp);
 static void mpiPi_print_top_collective_sent_sites (FILE * fp);
 static void mpiPi_print_top_pt2pt_sent_sites (FILE * fp);
+static void mpiPi_print_pt2pt_stat_sites (FILE * fp);
 static void mpiPi_print_top_io_sites (FILE * fp);
 static void mpiPi_print_top_rma_sites (FILE * fp);
 static void mpiPi_print_all_callsite_time_info (FILE * fp);
@@ -943,6 +944,46 @@ mpiPi_print_top_pt2pt_sent_sites (FILE * fp)
 
 done:
   return;
+}
+
+static void
+mpiPi_print_pt2pt_stat_sites (FILE * fp)
+{
+  int nrank = 0;
+  int nelem = 0;
+  pt2pt_stats_t *ptp;
+
+  if (mpiPi.accumulatedPt2ptCounts)
+    {
+      print_section_heading (fp, "Aggregate Point-To-Point Stats (bytes, milliseconds)");
+
+      fprintf (fp, "%8s %9s %11s %11s\n", "Src-Rank",
+	       "Dest-Rank", "Total-Size", "Total-Time");
+
+      for(nrank = 0; nrank < mpiPi.size; nrank++)
+	{
+	  int count = mpiPi.accumulatedPt2ptCounts[nrank];
+	  
+	  if (count == 0)
+	    {
+	      continue;
+	    }
+
+	  nelem = 0;
+	  ptp = mpiPi.accumulatedPt2ptData[nrank];
+	  while (nelem < count)
+	    {	      
+	      fprintf(fp,"%8d %8d %9.4g %10.3g\n",
+		      nrank, ptp[nelem].rank,
+		      ptp[nelem].cumulativeDataSent,
+		      ptp[nelem].cumulativeTime / 1000);
+	      nelem++;
+	    }
+	  free(ptp);
+	}
+      free(mpiPi.accumulatedPt2ptData);
+      free(mpiPi.accumulatedPt2ptCounts);
+    }
 }
 
 static void
@@ -3117,7 +3158,10 @@ mpiPi_profile_print_verbose (FILE * fp)
       if (mpiPi.do_collective_stats_report)
 	mpiPi_print_top_collective_sent_sites (fp);
       if (mpiPi.do_pt2pt_stats_report)
-	mpiPi_print_top_pt2pt_sent_sites (fp);
+	{
+	  mpiPi_print_top_pt2pt_sent_sites (fp);
+	  mpiPi_print_pt2pt_stat_sites (fp);
+	}
       mpiPi_print_top_io_sites (fp);
       mpiPi_print_top_rma_sites (fp);
     }

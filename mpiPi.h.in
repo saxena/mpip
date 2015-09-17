@@ -50,6 +50,9 @@
 #define MPIP_CALLSITE_STATS_COOKIE 518641
 #define MPIP_CALLSITE_STATS_COOKIE_ASSERT(f) {assert(MPIP_CALLSITE_STATS_COOKIE==((f)->cookie));}
 
+#define MPIP_PT2PT_STATS_COOKIE 407530 /* subtract 1 from CALLSITE_COOKIE */
+#define MPIP_PT2PT_STATS_COOKIE_ASSERT(f) {assert(MPIP_PT2PT_STATS_COOKIE==((f)->cookie));}
+
 #ifdef USE_MPI3_CONSTS
 typedef const void mpip_const_void_t;
 typedef const int mpip_const_int_t;
@@ -61,6 +64,15 @@ typedef char mpip_const_char_t;
 #endif
 
 typedef char mpiPi_hostname_t[MPIPI_HOSTNAME_LEN_MAX];
+
+typedef struct _pt2pt_stats
+{
+  unsigned rank;
+  double cumulativeTime;
+  double cumulativeDataSent;
+  long cookie;
+}
+pt2pt_stats_t;
 
 typedef struct _callsite_stats
 {
@@ -243,6 +255,10 @@ typedef struct _mpiPi_t
   mpiPi_histogram_t pt2pt_size_histogram;
   double pt2pt_send_stats[(mpiPi_DEF_END - mpiPi_BASE)][32][32];
 
+  h_t *task_pt2pt_stats;
+  int *accumulatedPt2ptCounts;
+  pt2pt_stats_t **accumulatedPt2ptData;
+  
 }
 mpiPi_t;
 
