@@ -974,8 +974,10 @@ mpiPi_recv_pt2pt_stats(int ac, pt2pt_stats_t** av)
     }
   
   /* Copy Data for collector rank */
-  assert(ac);
-  mpiPi.accumulatedPt2ptData[mpiPi.rank] = *av;
+  if (ac)
+    {
+      mpiPi.accumulatedPt2ptData[mpiPi.rank] = *av;
+    }
 
   i = 0;
   /* Insert pt2pt data into aggregate array indexed by rank */
@@ -1307,7 +1309,10 @@ mpiPi_finalize ()
   if (mpiPi.global_task_hostnames != NULL)
     free (mpiPi.global_task_hostnames);
 
-  h_close(mpiPi.task_pt2pt_stats);
+  if (mpiPi.task_pt2pt_stats)
+    {
+      h_close(mpiPi.task_pt2pt_stats);
+    }
 
   /*  Could do a lot of housekeeping before calling PMPI_Finalize()
    *  but is it worth the additional work?
