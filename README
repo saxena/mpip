@@ -11,3 +11,6 @@ How to Deploy this repository ?
 git clone https://rahulsaxena@bitbucket.org/rahulsaxena/mpip.git
 
 * perftools$> make install-mpip
+
+* To Enable Rank Specific MPI Time information and to enable 
+  Rank to Rank Bytes and MPI Time details use the '-q' option to the MPIP env variable

@@ -1,10 +1,10 @@
-/* -*- C -*- 
+/* -*- C -*-
 
    mpiP MPI Profiler ( http://mpip.sourceforge.net/ )
 
    Please see COPYRIGHT AND LICENSE information at the end of this file.
 
-   ----- 
+   -----
 
    mpiPi.c -- main mpiP internal functions
 
@@ -138,7 +138,7 @@ mpiPi_callsite_stats_src_id_comparator (const void *p1, const void *p2)
 }
 
 #ifndef ENABLE_API_ONLY		/* { */
-/* task level init 
+/* task level init
    - executed by each MPI task only once immediately after MPI_Init
 */
 
@@ -222,6 +222,9 @@ mpiPi_init (char *appName)
 #ifdef SO_LOOKUP
   mpiPi.so_info = NULL;
 #endif
+
+  mpiPi.do_pt2pt_detail_report = 0;
+
   mpiPi_getenv ();
 
   mpiPi.task_callsite_stats =
@@ -242,9 +245,12 @@ mpiPi_init (char *appName)
       init_histogram (&mpiPi.pt2pt_comm_histogram, 7, 32, NULL);
       init_histogram (&mpiPi.pt2pt_size_histogram, 7, 32, NULL);
 
-      mpiPi.task_pt2pt_stats =
-	h_open(mpiPi.tableSize, mpiPi_pt2pt_stats_rank_hashkey,
-	       mpiPi_pt2pt_stats_rank_comparator);
+      if(mpiPi.do_pt2pt_detail_report == 1)
+	{
+	  mpiPi.task_pt2pt_stats =
+	    h_open(mpiPi.tableSize, mpiPi_pt2pt_stats_rank_hashkey,
+		   mpiPi_pt2pt_stats_rank_comparator);
+	}
     }
 
   /* -- welcome msg only collector  */
@@ -540,9 +546,9 @@ mpiPi_insert_callsite_records (callsite_stats_t * p)
 
   /* If exists, accumulate, otherwise insert. This is
      specifically for optimizations that have multiple PCs for
-     one src line. We aggregate across rank after this. 
+     one src line. We aggregate across rank after this.
 
-     The collective_report reporting approach does not aggregate individual 
+     The collective_report reporting approach does not aggregate individual
      process callsite information at the collector process.
    */
   if (mpiPi.collective_report == 0)
@@ -972,7 +978,7 @@ mpiPi_recv_pt2pt_stats(int ac, pt2pt_stats_t** av)
 	("Failed to allocate memory to collect point to point info");
       assert(0);
     }
-  
+
   /* Copy Data for collector rank */
   if (ac)
     {
@@ -998,8 +1004,8 @@ mpiPi_recv_pt2pt_stats(int ac, pt2pt_stats_t** av)
 
       mpiPi_msg_debug("(%d): Receiving %d bytes in pt2pt records from %d...\n",
 		      mpiPi.rank, count, src_rank);
-      
-      PMPI_Recv (ptp, count, MPI_CHAR, src_rank, 
+
+      PMPI_Recv (ptp, count, MPI_CHAR, src_rank,
 		 mpiPi.tag, mpiPi.comm, &status);
 
       mpiPi_msg_debug("(%d): Received\n",mpiPi.rank);
@@ -1013,7 +1019,7 @@ mpiPi_recv_pt2pt_stats(int ac, pt2pt_stats_t** av)
 
       i++;
     }
-  
+
 }
 
 void
@@ -1024,7 +1030,7 @@ mpiPi_send_pt2pt_stats(int ac, pt2pt_stats_t** av)
       int ndx;
       int pt2pt_size = sizeof(pt2pt_stats_t);
       char *sbuf = (char *) malloc (ac * pt2pt_size);
-      
+
       for (ndx = 0; ndx < ac; ndx++)
 	{
 	  bcopy (av[ndx], &(sbuf[ndx * pt2pt_size]), pt2pt_size);
@@ -1035,7 +1041,7 @@ mpiPi_send_pt2pt_stats(int ac, pt2pt_stats_t** av)
 
       PMPI_Send (sbuf, ac * pt2pt_size, MPI_CHAR,
 		 mpiPi.collectorRank, mpiPi.tag, mpiPi.comm);
-      
+
       mpiPi_msg_debug("(%d): Sent\n",mpiPi.rank);
 
       free (sbuf);
@@ -1049,7 +1055,7 @@ mpiPi_mergept2ptHashStats ()
   pt2pt_stats_t **av;
   int totalCount = 0;
 
-  if (mpiPi.do_pt2pt_stats_report)
+  if (mpiPi.do_pt2pt_detail_report)
     {
       /* gather local task data */
       h_gather_data (mpiPi.task_pt2pt_stats, &ac, (void ***) &av);
@@ -1077,9 +1083,9 @@ mpiPi_mergept2ptHashStats ()
 	  assert(mpiPi.accumulatedPt2ptCounts);
 	}
 
-      PMPI_Gather(&ac, 1, MPI_INT, mpiPi.accumulatedPt2ptCounts, 
+      PMPI_Gather(&ac, 1, MPI_INT, mpiPi.accumulatedPt2ptCounts,
 		  1, MPI_INT, mpiPi.collectorRank, mpiPi.comm);
-      
+
       /* gather global data at collector */
       if (mpiPi.rank == mpiPi.collectorRank)
 	{
@@ -1475,30 +1481,33 @@ mpiPi_update_pt2pt_stats (int op, unsigned destRank, double dur, double size, MP
 
   mpiPi.pt2pt_send_stats[op_idx][comm_bin][size_bin] += size;
 
-  /* Update Point2Point Sent Bytes & Time Stats */
-  assert(mpiPi.task_pt2pt_stats != NULL);
-
-  key.rank = destRank;
-  key.cookie = MPIP_PT2PT_STATS_COOKIE;
-
-  if (NULL == h_search (mpiPi.task_pt2pt_stats, &key, (void **) &ptp))
+  if(mpiPi.do_pt2pt_detail_report == 1)
     {
-      /* create and insert */
-      ptp = (pt2pt_stats_t *) malloc (sizeof (pt2pt_stats_t));
-      bzero (ptp, sizeof (pt2pt_stats_t));
+      /* Update Point2Point Sent Bytes & Time Stats */
+      assert(mpiPi.task_pt2pt_stats != NULL);
 
-      ptp->rank = destRank;
-      ptp->cumulativeTime = 0;
-      ptp->cumulativeDataSent = 0;
-      ptp->cookie = MPIP_PT2PT_STATS_COOKIE;
+      key.rank = destRank;
+      key.cookie = MPIP_PT2PT_STATS_COOKIE;
 
-      h_insert(mpiPi.task_pt2pt_stats, ptp);
+      if (NULL == h_search (mpiPi.task_pt2pt_stats, &key, (void **) &ptp))
+	{
+	  /* create and insert */
+	  ptp = (pt2pt_stats_t *) malloc (sizeof (pt2pt_stats_t));
+	  bzero (ptp, sizeof (pt2pt_stats_t));
+
+	  ptp->rank = destRank;
+	  ptp->cumulativeTime = 0;
+	  ptp->cumulativeDataSent = 0;
+	  ptp->cookie = MPIP_PT2PT_STATS_COOKIE;
+
+	  h_insert(mpiPi.task_pt2pt_stats, ptp);
+	}
+      ptp->cumulativeTime += dur;
+      ptp->cumulativeDataSent += size;
+
+      mpiPi_msg_debug("Accumulating pt2pt stats from rank:%d -> rank:%d (%f bytes, %f ms)",
+		      mpiPi.rank, destRank, size, dur / 1000);
     }
-  ptp->cumulativeTime += dur;
-  ptp->cumulativeDataSent += size;
-
-  mpiPi_msg_debug("Accumulating pt2pt stats from rank:%d -> rank:%d (%f bytes, %f ms)",
-		  mpiPi.rank, destRank, size, dur / 1000);
 }
 
 
@@ -1506,22 +1515,22 @@ mpiPi_update_pt2pt_stats (int op, unsigned destRank, double dur, double size, MP
 
 
 
-/* 
+/*
 
 <license>
 
-Copyright (c) 2006, The Regents of the University of California. 
-Produced at the Lawrence Livermore National Laboratory 
-Written by Jeffery Vetter and Christopher Chambreau. 
-UCRL-CODE-223450. 
-All rights reserved. 
- 
-This file is part of mpiP.  For details, see http://mpip.sourceforge.net/. 
- 
+Copyright (c) 2006, The Regents of the University of California.
+Produced at the Lawrence Livermore National Laboratory
+Written by Jeffery Vetter and Christopher Chambreau.
+UCRL-CODE-223450.
+All rights reserved.
+
+This file is part of mpiP.  For details, see http://mpip.sourceforge.net/.
+
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
 met:
- 
+
 * Redistributions of source code must retain the above copyright
 notice, this list of conditions and the disclaimer below.
 
@@ -1546,22 +1555,22 @@ PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- 
- 
-Additional BSD Notice 
- 
+
+
+Additional BSD Notice
+
 1. This notice is required to be provided under our contract with the
 U.S. Department of Energy (DOE).  This work was produced at the
 University of California, Lawrence Livermore National Laboratory under
 Contract No. W-7405-ENG-48 with the DOE.
- 
+
 2. Neither the United States Government nor the University of
 California nor any of their employees, makes any warranty, express or
 implied, or assumes any liability or responsibility for the accuracy,
 completeness, or usefulness of any information, apparatus, product, or
 process disclosed, or represents that its use would not infringe
 privately-owned rights.
- 
+
 3.  Also, reference herein to any specific commercial products,
 process, or services by trade name, trademark, manufacturer or
 otherwise does not necessarily constitute or imply its endorsement,

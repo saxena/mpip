@@ -141,7 +141,11 @@ enum
   MPIP_AGGREGATE_TIME_FMT, MPIP_AGGREGATE_COV_TIME_FMT,
   MPIP_AGGREGATE_MESS_FMT, MPIP_AGGREGATE_IO_FMT,
   MPIP_CALLSITE_TIME_SUMMARY_FMT, MPIP_CALLSITE_TIME_RANK_FMT,
+  /* Only used with the -q option */
+  MPIP_CALLSITE_TIME_SUMMARY_PLUS_TIME_FMT, MPIP_CALLSITE_TIME_RANK_PLUS_TIME_FMT,
   MPIP_CALLSITE_MESS_SUMMARY_FMT, MPIP_CALLSITE_MESS_RANK_FMT,
+  /* Only used with the -q option */
+  MPIP_CALLSITE_MESS_SUMMARY_PLUS_TIME_FMT, MPIP_CALLSITE_MESS_RANK_PLUS_TIME_FMT,
   MPIP_CALLSITE_IO_SUMMARY_FMT, MPIP_CALLSITE_IO_RANK_FMT,
   MPIP_CALLSITE_TIME_CONCISE_FMT, MPIP_CALLSITE_MESS_CONCISE_FMT,
   MPIP_HISTOGRAM_FMT
@@ -255,6 +259,7 @@ typedef struct _mpiPi_t
   mpiPi_histogram_t pt2pt_size_histogram;
   double pt2pt_send_stats[(mpiPi_DEF_END - mpiPi_BASE)][32][32];
 
+  int do_pt2pt_detail_report;
   h_t *task_pt2pt_stats;
   int *accumulatedPt2ptCounts;
   pt2pt_stats_t **accumulatedPt2ptData;
