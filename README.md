@@ -17,11 +17,21 @@ This software is based on the Version 3.4.1, 13 March 2014, of mpiP.
 
 * Clone this:
 
-`git clone https://rahulsaxena@bitbucket.orgminimalmetrics/mpip.git`
+`git clone https://<you>@bitbucket.org/minimalmetrics/mpip.git`
 
-* Build that:
+* Build that, MM-style:
 
-`make install-mpip`
+`./configure --disable-bfd --disable-libunwind --disable-so-lookup --disable-fortranxlate
+make
+make shared`
+
+* Test it:
+
+`cd testing; mpirun -np 2 ./9-test-mpip-time.exe`
+
+and exercise the new code:
+
+`export MPIP=-q; mpirun -np 2 ./9-test-mpip-time.exe`
 
 * Dependencies:
 
