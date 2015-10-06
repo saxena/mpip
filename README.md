@@ -29,7 +29,7 @@ make shared`
 
 `cd testing; mpirun -np 2 ./9-test-mpip-time.exe`
 
-and exercise the new code:
+* Test the new code:
 
 `export MPIP=-q; mpirun -np 2 ./9-test-mpip-time.exe`
 
@@ -39,8 +39,6 @@ Any platform where mpiP, Version 3.4.1, 13 March 2014 can be built and passes al
 
 ### Usage
 
-* Enable new features:
-
-To Enable Rank Specific MPI Time information and to enable  Rank to Rank Bytes and MPI Time details use the '-q' option to the MPIP env variable (or add this flag to your current set of MPIP options):
+To Enable Rank Specific MPI Time information and to enable Rank to Rank Bytes and MPI Time details use the '-q' option to the MPIP env variable, or add this flag to your current set of MPIP options
 
 `export MPIP=-q`
