@@ -1,16 +1,36 @@
-This is clone of the mpiP repository from Sourceforge.
+# mpiP-mm
+mpiP - Minimal Metrics edition
 
-* Contains MM specific changes to add printing of Rank specific MPI Time data.
-* Also contains MM specific Point to Point profiling of "Bytes" and "MPI Time"
-  between pairs of source and destination ranks.
+This is modification of the fantastic MPI performance tracing library that is [mpiP](http://mpip.sourceforge.net). These changes were made on behalf of Sandia National Laboratories by Minimal Metrics LLC. More features will be added as required.
 
-How to Deploy this repository ?
+Specifically, this branch of mpiP makes the following modifications:
 
-* Clone this repository within the perftools directory structure.
+* Rank-specific MPI time data
+* Point to point profiling of "Bytes" and "MPI Time"
+  between pairs of source and destination ranks
 
-git clone https://rahulsaxena@bitbucket.org/rahulsaxena/mpip.git
+This software is based on the Version 3.4.1, 13 March 2014, of mpiP.
 
-* perftools$> make install-mpip
+## How to use this software
 
-* To Enable Rank Specific MPI Time information and to enable 
-  Rank to Rank Bytes and MPI Time details use the '-q' option to the MPIP env variable
+### Compiling
+
+* Clone this:
+
+`git clone https://rahulsaxena@bitbucket.orgminimalmetrics/mpip.git`
+
+* Build that:
+
+`make install-mpip`
+
+* Dependencies:
+
+Any platform where mpiP, Version 3.4.1, 13 March 2014 can be built and passes all testing (which is virtually everywhere).
+
+### Usage
+
+* Enable new features:
+
+To Enable Rank Specific MPI Time information and to enable  Rank to Rank Bytes and MPI Time details use the '-q' option to the MPIP env variable (or add this flag to your current set of MPIP options):
+
+`export MPIP=-q`
