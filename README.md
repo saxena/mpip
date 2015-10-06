@@ -21,17 +21,20 @@ This software is based on the Version 3.4.1, 13 March 2014, of mpiP.
 
 * Build that, MM-style:
 
-`./configure --disable-bfd --disable-libunwind --disable-so-lookup --disable-fortranxlate
-make
-make shared`
+`./configure --disable-bfd --disable-libunwind --disable-so-lookup --disable-fortranxlate`
+`make`
+`make test`
+`make shared`
 
 * Test it:
 
-`cd testing; mpirun -np 2 ./9-test-mpip-time.exe`
+`cd testing`
+`mpirun -np 2 ./9-test-mpip-time.exe`
 
 * Test the new code:
 
-`export MPIP=-q; mpirun -np 2 ./9-test-mpip-time.exe`
+`export MPIP=-q`
+`mpirun -np 2 ./9-test-mpip-time.exe`
 
 * Dependencies:
 
