@@ -15,6 +15,7 @@ static char *svnid =
 #endif
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "mpi.h"
 
 main (int argc, char **argv)
@@ -50,7 +51,7 @@ main (int argc, char **argv)
   }
   MPI_Finalize ();
   printf ("(%d) Finished normally\n", rank);
-}
+exit(0);}
 
 
 /* 
